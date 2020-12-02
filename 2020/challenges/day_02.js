@@ -31,13 +31,11 @@ function IsPasswordValid_2(Policy, Password) {
 	const PolicyParts = Policy.split(" ");
 	const Positions = PolicyParts[0].split("-");
 	const RequiredLetter = PolicyParts[1];
-	let Matches = 0;
+	const FirstCheck = Password.charAt(Positions[0] - 1) === RequiredLetter;
+	const SecondCheck = Password.charAt(Positions[1] - 1) === RequiredLetter;
 
-	_.each(Positions, (Position) => {
-		const LetterAtPos = Password.charAt(Position - 1) === RequiredLetter;
-		if(LetterAtPos) {
-			Matches++;
-		}
-	});
-	return Matches === 1 ? true : false;
+	if(FirstCheck && SecondCheck || !(FirstCheck || SecondCheck)) {
+		return false;
+	}
+	return true;
 }
