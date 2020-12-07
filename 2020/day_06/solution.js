@@ -73,7 +73,5 @@ function CountGroupAnswers_2(GroupData) {
 		QuestionsAnswered = _.intersection(QuestionsAnswered, Letters);
 	});
 
-	console.log({ QuestionsAnswered });
-
 	return _.size(QuestionsAnswered);
 }
