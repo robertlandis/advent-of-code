@@ -1,7 +1,3 @@
-const MaxRow = [0, 127];
-const MaxSeat = [0, 7];
-
-const SeatMap = {};
 
 $(function () {
 	const FormattedInput = PrepData();
