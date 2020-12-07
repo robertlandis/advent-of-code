@@ -16,10 +16,10 @@ $(function () {
 	_.each(Input_05, (SeatCode) => {
 		const SeatId = FindSeatId(SeatCode);
 		if(SeatId in SeatMap) {
-			SeatMap[SeatId] = true;
+			delete SeatMap[SeatId];
 		}
-		
-	})
+	});
+
 	// Solution2 = ValidPassports_2.valid;
 });
 
