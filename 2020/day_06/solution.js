@@ -1,7 +1,6 @@
 
 $(function () {
 	const FormattedInput = PrepData();
-	console.log({ FormattedInput });
 	// part 1
 	const Count = _.reduce(
 		FormattedInput,
