@@ -10,19 +10,22 @@ $(function () {
 
 // Part 1
 function FindInvalidNumber() {
-	let ErrorFound, NumToCheck = false;
+	let ErrorFound,
+		NumToCheck = false;
 	let NumToCheckIndex = PreambleLength;
 
 	do {
 		NumToCheck = Input_09[NumToCheckIndex];
-		const LowerBound = NumToCheckIndex - (PreambleLength); // - 1 maybe needed?
+		const LowerBound = NumToCheckIndex - PreambleLength; // - 1 maybe needed?
 		const PossibleNumbers = Input_09.slice(LowerBound, NumToCheckIndex);
 
 		ErrorFound = _.find(PossibleNumbers, (Num) => {
 			const Difference = NumToCheck - Num;
 			return _.indexOf(PossibleNumbers, Difference) > -1;
-		}) ? false : true;
-		
+		})
+			? false
+			: true;
+
 		NumToCheckIndex++;
 	} while (!ErrorFound && NumToCheckIndex < Input_09.length - 1);
 
@@ -31,29 +34,24 @@ function FindInvalidNumber() {
 
 // Part 2
 function FindWeaknessSet(InvalidNumber) {
-	let StartIndex, EndIndex, NumberRange;
-	
+	let NumberRange;
+
 	_.find(Input_09, (_NumberToCheck, NumberIndex) => {
-		StartIndex = NumberIndex;
-		EndIndex = NumberIndex + 1;
+		let StartIndex = NumberIndex;
+		let EndIndex = NumberIndex + 1;
 		NumberRange = Input_09.slice(StartIndex, EndIndex + 1);
-		let Sum = _.reduce(NumberRange, (Total, Number) => { return Total + Number; }, 0);
+
+		let Sum = NumberRange[0] + NumberRange[1];
+
 		while (Sum < InvalidNumber) {
 			EndIndex++;
 			NumberRange = Input_09.slice(StartIndex, EndIndex + 1);
-			Sum = _.reduce(
-				NumberRange,
-				(Total, Number) => {
-					return Total + Number;
-				},
-				0
-			);
+			Sum += NumberRange[NumberRange.length - 1];
 		}
+
 		return Sum === InvalidNumber;
-	})
+	});
 
-	const MinValue = _.min(NumberRange);
-	const MaxValue = _.max(NumberRange)
-	return MinValue + MaxValue;
-
+	NumberRange = _.sortBy(NumberRange, (number) => number);
+	return NumberRange[0] + NumberRange[NumberRange.length - 1];
 }
